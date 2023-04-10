@@ -15,9 +15,8 @@ export class JwtGuard extends PassportStrategy(Strategy) {
     return {
       username: payload.username,
       password: payload.password,
-      firstname: payload.firstname,
-      lastname: payload.lastname,
-      orderDetails: payload.orderDetails,
+      createdat: payload.createdat,
+      updatedat: payload.updatedat,
     };
   }
 }

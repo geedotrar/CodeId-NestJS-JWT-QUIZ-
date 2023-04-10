@@ -14,6 +14,16 @@ import { JwtGuard } from 'src/auth/jwt.strategy';
 import { LocalGuard } from 'src/auth/local.strategy';
 import { ProductCategoryService } from 'src/product-category/product-category.service';
 import { ProductCategoryController } from 'src/product-category/product-category.controller';
+import { CustomerController } from 'src/customer/customer.controller';
+import { CustomerService } from 'src/customer/customer.service';
+import { OrdersService } from 'src/orders/orders.service';
+import { OrdersController } from 'src/orders/orders.controller';
+import { ProductService } from 'src/product/product.service';
+import { ProductController } from 'src/product/product.controller';
+import { OrderDetailService } from 'src/order-detail/order-detail.service';
+import { OrderDetailController } from 'src/order-detail/order-detail.controller';
+import { MulterModule } from '@nestjs/platform-express';
+import { UploadMiddleware } from 'src/multer/multer.middleware';
 
 @Module({
   imports: [
@@ -30,6 +40,7 @@ import { ProductCategoryController } from 'src/product-category/product-category
       secret: 'secretKey',
       signOptions: { expiresIn: '2d' },
     }),
+    MulterModule.register(UploadMiddleware.MulterOption()),
   ],
   providers: [
     UserService,
@@ -37,8 +48,19 @@ import { ProductCategoryController } from 'src/product-category/product-category
     UserService,
     LocalGuard,
     ProductCategoryService,
+    CustomerService,
+    OrdersService,
+    ProductService,
+    OrderDetailService,
   ],
-  controllers: [UserController, ProductCategoryController],
+  controllers: [
+    UserController,
+    ProductCategoryController,
+    CustomerController,
+    OrdersController,
+    ProductController,
+    OrderDetailController,
+  ],
   exports: [UserService],
 })
 export class ModuleModule {}
